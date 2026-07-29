@@ -32,13 +32,25 @@
   }
   .screen{
     position:fixed; inset:0;
-    display:flex; align-items:center; justify-content:center;
+    height:100dvh;
+    display:flex; align-items:center; justify-content:flex-start;
     flex-direction:column;
-    padding:24px;
+    padding:max(20px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
     text-align:center;
     opacity:0; visibility:hidden; pointer-events:none;
     transition:opacity .5s ease;
+    overflow-y:auto;
+    overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;
   }
+  .screen::before,
+  .screen::after{
+    content:'';
+    flex:1 1 4vh;
+  }
+  /* keeps content visually centered when it fits the viewport, while still
+     letting the whole screen scroll (top-to-bottom) when content is taller
+     than the viewport, instead of being cut off and unreachable */
   .screen.active{
     opacity:1; visibility:visible; pointer-events:auto;
   }
@@ -365,7 +377,8 @@
   }
   .envelope-scene{
     perspective:1000px;
-    width:240px; height:160px;
+    width:min(240px, 62vw);
+    height:min(160px, calc(62vw * 0.667));
     margin-bottom:22px;
   }
   .envelope{
@@ -466,6 +479,24 @@
   @media (max-width:420px){
     .popup-card{padding:26px 18px 24px;}
     .carousel-wrap{max-width:320px;}
+    .wish-box{padding:28px 18px;}
+    .reveal-item{width:110px;}
+    .balloon-wrap{width:68px;}
+    .balloon{width:62px; height:74px;}
+  }
+
+  @media (max-height:700px){
+    .screen{padding-top:12px; padding-bottom:16px;}
+    .intro-img-wrap{margin-bottom:4px;}
+    .envelope-scene{margin-bottom:10px;}
+    .wish-box{padding:22px 18px;}
+    .wish-box p{line-height:1.5;}
+    .carousel-wrap{max-width:280px;}
+    .reveal-row{margin-top:14px;}
+  }
+
+  @media (max-width:360px){
+    .carousel-wrap{max-width:260px;}
   }
 </style>
 </head>
